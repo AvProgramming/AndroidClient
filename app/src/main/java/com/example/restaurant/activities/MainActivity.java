@@ -1,11 +1,11 @@
 package com.example.restaurant.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
 
 import com.example.restaurant.R;
 import com.example.restaurant.databinding.ActivityMainBinding;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         binding.bottomNavigationView.setOnItemReselectedListener(item -> {
 
