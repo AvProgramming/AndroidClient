@@ -27,23 +27,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        binding.bottomNavigationView.setOnItemReselectedListener(item -> {
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
                 case R.id.home_nav:
                     replaceFragment(new HomeFragment());
-                    break;
+                    return true;
                 case R.id.profile_nav:
                     replaceFragment(new ProfileFragment());
-                    break;
+                    return true;
                 case R.id.cart_nav:
                     replaceFragment(new CartFragment());
-                    break;
+                    return true;
                 case R.id.orders_nav:
                     replaceFragment(new OrderFragment());
-                    break;
+                    return true;
             }
 
+            return false;
         });
     }
 
