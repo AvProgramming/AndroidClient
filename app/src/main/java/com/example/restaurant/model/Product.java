@@ -9,7 +9,7 @@ public class Product {
     @SerializedName("id")
     @Expose
     private Long id;
-    @SerializedName("product_name")
+    @SerializedName("name")
     @Expose
     private String productName;
     @SerializedName("price")
