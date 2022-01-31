@@ -9,9 +9,9 @@ public class Product {
     @SerializedName("id")
     @Expose
     private Long id;
-    @SerializedName("product_name")
+    @SerializedName("name")
     @Expose
-    private String productName;
+    private String name;
     @SerializedName("price")
     @Expose
     private Double price;
@@ -25,17 +25,17 @@ public class Product {
     @Expose
     private String type;
 
-    public Product(String productName, Double price, String imgUrl, Boolean vegan, String type) {
-        this.productName = productName;
+    public Product(String name, Double price, String imgUrl, Boolean vegan, String type) {
+        this.name = name;
         this.price = price;
         this.imgUrl = imgUrl;
         this.vegan = vegan;
         this.type = type;
     }
 
-    public Product(Long id, String productName, Double price, String imgUrl, Boolean vegan, String type) {
+    public Product(Long id, String name, Double price, String imgUrl, Boolean vegan, String type) {
         this.id = id;
-        this.productName = productName;
+        this.name = name;
         this.price = price;
         this.imgUrl = imgUrl;
         this.vegan = vegan;
@@ -55,16 +55,16 @@ public class Product {
         return this;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Product withProductName(String productName) {
-        this.productName = productName;
+        this.name = productName;
         return this;
     }
 
@@ -130,7 +130,7 @@ public class Product {
         sb.append(',');
         sb.append("productName");
         sb.append('=');
-        sb.append(((this.productName == null)?"<null>":this.productName));
+        sb.append(((this.name == null)?"<null>":this.name));
         sb.append(',');
         sb.append("price");
         sb.append('=');

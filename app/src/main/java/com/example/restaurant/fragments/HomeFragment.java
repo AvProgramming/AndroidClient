@@ -57,7 +57,8 @@ public class HomeFragment extends Fragment {
 //        productAdapter.notifyDataSetChanged();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.40.53:3106")
+//                .baseUrl("http://192.168.40.53:3106")
+                .baseUrl("http://10.0.2.2:3106")
                 .addConverterFactory(GsonConverterFactory.create()).build();
         System.out.println("aa1");
 
