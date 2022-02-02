@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.restaurant.adapters.ProductAdapter;
+import com.example.restaurant.adapters.GroupAdapter;
 import com.example.restaurant.R;
 import com.example.restaurant.apiinterface.ProductApi;
 import com.example.restaurant.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +29,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
 
-    ProductAdapter productAdapter;
-    RecyclerView recyclerView;
-    ArrayList<Product> productArrayList = new ArrayList<>();
+    RecyclerView recyclerViewGroup;
+    ArrayList<Product> productArrayList;
+    List<String> categoriesList;
+    GroupAdapter groupAdapter;
     Retrofit retrofit;
     ProductApi productApi;
 
@@ -39,13 +41,14 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerViewGroup = view.findViewById(R.id.groupRecyclerView);
 
-        recyclerView = view.findViewById(R.id.productRecyclerView);
-        productAdapter = new ProductAdapter(productArrayList, getContext());
+        productInit();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(productAdapter);
+        return view;
+    }
 
+    private void productInit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3106")
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -58,14 +61,19 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> productResponse = response.body();
 
-                int code = response.code();
-
-                productArrayList.clear();
                 assert productResponse != null;
-                productArrayList.addAll(productResponse);
+                productArrayList = (ArrayList<Product>) productResponse;
+                categoriesList = new ArrayList<>();
 
-                productAdapter.notifyDataSetChanged();
+                getCategories();
 
+                groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext());
+
+                recyclerViewGroup.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerViewGroup.setAdapter(groupAdapter);
+
+                System.out.println(categoriesList.get(0));
+                System.out.println(productArrayList.get(0));
             }
 
             @Override
@@ -75,7 +83,14 @@ public class HomeFragment extends Fragment {
                 System.out.println(t.getMessage());
             }
         });
-        return view;
+    }
+
+    private void getCategories() {
+        for (int i = 0; i < productArrayList.size(); i++) {
+            categoriesList.add(productArrayList.get(i).getType());
+        }
+        categoriesList = categoriesList.stream()
+                .distinct().collect(Collectors.toList());
     }
 
     @Override
