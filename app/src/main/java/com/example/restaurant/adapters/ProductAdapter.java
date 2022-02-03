@@ -23,6 +23,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     LayoutInflater inflater;
     OnButtonClickListener listener;
     private ArrayList<Product> products;
+    private int counter = 0;
 
     public ProductAdapter(ArrayList<Product> products, Context context, OnButtonClickListener onButtonClickListener) {
         this.products = products;
@@ -44,9 +45,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getProductName());
         holder.productPrice.setText(String.valueOf(product.getPrice()));
 
+        holder.restButton.setEnabled(false);
 
-
-        holder.addButton.setOnClickListener(view -> listener.onButtonClick(products.get(position)));
+        //Button events for passing data from recyclerview to parent fragment
+        holder.addButton.setOnClickListener(view -> {
+            holder.restButton.setEnabled(counter != 1);
+            counter++;
+            listener.onAddButtonClick(products.get(position));
+        });
+        holder.restButton.setOnClickListener(view -> {
+            holder.restButton.setEnabled(counter != 1);
+            counter--;
+            listener.onRemoveButtonClick(products.get(position));
+        });
 
         String urlImage = product.getImgUrl();
         Picasso.get().load(urlImage).fit().into(holder.imageView);

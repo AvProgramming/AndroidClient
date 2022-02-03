@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,12 +18,12 @@ import com.example.restaurant.R;
 import com.example.restaurant.adapters.DeskAdapter;
 import com.example.restaurant.apiinterface.DeskApi;
 import com.example.restaurant.model.Desk;
+import com.example.restaurant.model.Purchase;
 import com.example.restaurant.model.DeskListClass;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;

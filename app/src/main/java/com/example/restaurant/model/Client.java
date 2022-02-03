@@ -1,30 +1,33 @@
 package com.example.restaurant.model;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DeskListClass {
+public class Client {
 
-    @SerializedName("content")
+    @SerializedName("id")
     @Expose
-    private List<Desk> desks = null;
+    private Long id;
 
-    public List<Desk> getDesks() {
-        return desks;
+    public Long getId() {
+        return id;
     }
 
-    public void setContent(List<Desk> desks) {
-        this.desks = desks;
+    public Client(Long id) {
+        this.id = id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Purchase.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("content");
+        sb.append(Client.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("id");
         sb.append('=');
-        sb.append(((this.desks == null)?"<null>":this.desks));
+        sb.append(((this.id == null)?"<null>":this.id));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');

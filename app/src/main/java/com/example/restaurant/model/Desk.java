@@ -66,7 +66,7 @@ public class Desk {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Desk.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Purchase.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));

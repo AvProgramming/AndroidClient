@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +49,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
         productListFiltering(position);
 
+        //Creating and initializing nested recyclerview
         ProductAdapter productAdapter = new ProductAdapter(filteredProducts, inflater.getContext(), this);
 
         holder.recyclerViewMember.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
@@ -71,9 +71,15 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return categories.size();
     }
 
+    //Interface bus implementation
     @Override
-    public void onButtonClick(Product product) {
-        listener.onInterfaceChanged(product);
+    public void onAddButtonClick(Product product) {
+        listener.onAddingInterfaceChanged(product);
+    }
+
+    @Override
+    public void onRemoveButtonClick(Product product) {
+        listener.onRemoveInterfaceChanged(product);
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder {
