@@ -124,38 +124,14 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Product.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("id");
-        sb.append('=');
-        sb.append(((this.id == null)?"<null>":this.id));
-        sb.append(',');
-        sb.append("productName");
-        sb.append('=');
-        sb.append(((this.productName == null)?"<null>":this.productName));
-        sb.append(',');
-        sb.append("price");
-        sb.append('=');
-        sb.append(((this.price == null)?"<null>":this.price));
-        sb.append(',');
-        sb.append("imgUrl");
-        sb.append('=');
-        sb.append(((this.imgUrl == null)?"<null>":this.imgUrl));
-        sb.append(',');
-        sb.append("vegan");
-        sb.append('=');
-        sb.append(((this.vegan == null)?"<null>":this.vegan));
-        sb.append(',');
-        sb.append("type");
-        sb.append('=');
-        sb.append(((this.type == null)?"<null>":this.type));
-        sb.append(',');
-        if (sb.charAt((sb.length()- 1)) == ',') {
-            sb.setCharAt((sb.length()- 1), ']');
-        } else {
-            sb.append(']');
-        }
-        return sb.toString();
+        return "{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", price=" + price +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", vegan=" + vegan +
+                ", type='" + type + '\'' +
+                '}';
     }
 
 }

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.restaurant.R;
-import com.example.restaurant.apiinterface.ProductApi;
 import com.example.restaurant.apiinterface.PurchaseApi;
 import com.example.restaurant.model.Client;
 import com.example.restaurant.model.Product;
@@ -22,9 +21,9 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -74,22 +73,20 @@ public class CreateOrderActivity extends AppCompatActivity {
                         setAction("Action", event -> System.out.println("Name is null")).show();
                 Log.e("Error: ", "Something went wrong");
             } else {
-                List<String> contentList = new ArrayList<>();
 
-                for (Product p: cartList) {
-                    contentList.add(p.getProductName());
-                }
+                String content = cartList.toString();
 
-                String delimiter = " ";
-
-                String content = contentList.stream()
-                        .map(String::toString)
-                        .collect(Collectors.joining(delimiter));
+                System.out.println("CONT " + content);
 
                 Long clientId = Long.valueOf(personId.getEditText().getText().toString());
                 Long restaurantId = Long.valueOf(personId.getEditText().getText().toString());
 
-                Purchase purchase = new Purchase(new Date(), content, (long) totalPrice, "OPEN", (new Client(clientId)), (new Restaurant(restaurantId)));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date dt = new Date();
+
+                String currentTime = sdf.format(dt);
+
+                Purchase purchase = new Purchase(currentTime, content, (long) totalPrice, "OPEN", (new Client(clientId)), (new Restaurant(restaurantId)));
 
                 retrofit = new Retrofit.Builder()
                         .baseUrl("http://10.0.2.2:3106")
@@ -103,7 +100,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                 call.enqueue(new Callback<Purchase>() {
                     @Override
                     public void onResponse(Call<Purchase> call, Response<Purchase> response) {
-                        if(response.isSuccessful()) {
+                        if (response.isSuccessful()) {
                             System.out.println((response.body().toString()));
                             Log.i("LOG", "post submitted to API." + response.body().toString());
                         }
