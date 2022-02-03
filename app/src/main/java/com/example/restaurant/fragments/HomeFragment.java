@@ -2,9 +2,11 @@ package com.example.restaurant.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,9 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.restaurant.adapters.GroupAdapter;
 import com.example.restaurant.R;
+import com.example.restaurant.adapters.GroupAdapter;
 import com.example.restaurant.apiinterface.ProductApi;
+import com.example.restaurant.bundleinterface.OnInterfaceListener;
 import com.example.restaurant.model.Product;
 
 import java.util.ArrayList;
@@ -27,10 +30,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnInterfaceListener {
 
     RecyclerView recyclerViewGroup;
+    Button createOrder;
+    Double totalPrice = 0.0;
     ArrayList<Product> productArrayList;
+    ArrayList<Product> cart = new ArrayList<>();
     List<String> categoriesList;
     GroupAdapter groupAdapter;
     Retrofit retrofit;
@@ -42,6 +48,7 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerViewGroup = view.findViewById(R.id.groupRecyclerView);
+        createOrder = view.findViewById(R.id.createOrder);
 
         productInit();
 
@@ -67,13 +74,10 @@ public class HomeFragment extends Fragment {
 
                 getCategories();
 
-                groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext());
+                groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext(), HomeFragment.this);
 
                 recyclerViewGroup.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerViewGroup.setAdapter(groupAdapter);
-
-                System.out.println(categoriesList.get(0));
-                System.out.println(productArrayList.get(0));
             }
 
             @Override
@@ -96,5 +100,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+    }
+
+    @Override
+    public void onInterfaceChanged(Product product) {
+        cart.add(product);
+
+        totalPrice += product.getPrice();
+        createOrder.setText(String.format("Total price is: %.3f", totalPrice));
     }
 }

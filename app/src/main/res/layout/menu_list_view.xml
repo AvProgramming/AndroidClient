@@ -44,7 +44,7 @@
                     android:layout_marginBottom="5dp"
                     app:backgroundTint="#31E8CD"
                     app:iconTint="#15817D"
-                    android:id="@+id/removeFromList" />
+                    android:id="@+id/addButton" />
 
             <TextView
                     android:id="@+id/productName"
@@ -79,7 +79,8 @@
                     app:backgroundTint="#31E8CD"
                     app:iconTint="#15817D"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp" />
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/removeButton"/>
         </RelativeLayout>
     </LinearLayout>
 

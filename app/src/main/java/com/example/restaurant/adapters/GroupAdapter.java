@@ -5,28 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurant.R;
+import com.example.restaurant.bundleinterface.OnButtonClickListener;
+import com.example.restaurant.bundleinterface.OnInterfaceListener;
 import com.example.restaurant.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
+public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> implements OnButtonClickListener {
 
+    OnInterfaceListener listener;
     LayoutInflater inflater;
     private List<String> categories;
     private ArrayList<Product> filteredProducts;
     private ArrayList<Product> productArrayList;
 
-    public GroupAdapter(List<String> categories, ArrayList<Product> productArrayList, Context context) {
+    public GroupAdapter(List<String> categories, ArrayList<Product> productArrayList, Context context, OnInterfaceListener listener) {
         this.categories = categories;
         this.productArrayList = productArrayList;
         this.inflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,7 +50,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
         productListFiltering(position);
 
-        ProductAdapter productAdapter = new ProductAdapter(filteredProducts, inflater.getContext());
+        ProductAdapter productAdapter = new ProductAdapter(filteredProducts, inflater.getContext(), this);
 
         holder.recyclerViewMember.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
         holder.recyclerViewMember.setAdapter(productAdapter);
@@ -64,6 +69,11 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    @Override
+    public void onButtonClick(Product product) {
+        listener.onInterfaceChanged(product);
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder {
