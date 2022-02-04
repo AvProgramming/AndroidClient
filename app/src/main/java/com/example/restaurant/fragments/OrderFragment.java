@@ -1,25 +1,25 @@
 package com.example.restaurant.fragments;
 
 import android.os.Bundle;
-
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.restaurant.R;
 import com.example.restaurant.adapters.DeskAdapter;
 import com.example.restaurant.apiinterface.DeskApi;
 import com.example.restaurant.model.Desk;
-import com.example.restaurant.model.Purchase;
 import com.example.restaurant.model.DeskListClass;
+import com.example.restaurant.retrofit.ApiUtils;
 
 import org.json.JSONArray;
 
@@ -30,17 +30,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OrderFragment extends Fragment {
 
-    Integer page = 0;
+    private Integer page = 0;
     ProgressBar progressBar;
     NestedScrollView nestedScrollView;
     DeskAdapter deskAdapter;
     RecyclerView recyclerView;
-    ArrayList<Desk> deskArrayList = new ArrayList<>();
-    Retrofit retrofit;
+    private ArrayList<Desk> deskArrayList = new ArrayList<>();
     DeskApi deskApi;
 
     @Override
@@ -56,23 +54,19 @@ public class OrderFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_bar);
         nestedScrollView = view.findViewById(R.id.nested_scroll_view_desks);
-
         recyclerView = view.findViewById(R.id.deskRecyclerView);
-        deskAdapter = new DeskAdapter(deskArrayList, getContext());
 
+        //Setting the recycler view
+        deskAdapter = new DeskAdapter(deskArrayList, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(deskAdapter);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3106")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        deskApi = retrofit.create(DeskApi.class);
-
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+
+        deskApi = ApiUtils.getDeskApi();
 
         enqueueMethod();
 
+        //Paging the recycler view on load resources
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                 page++;
@@ -90,12 +84,11 @@ public class OrderFragment extends Fragment {
 
         getDesks.enqueue(new Callback<DeskListClass>() {
             @Override
-            public void onResponse(Call<DeskListClass> call, Response<DeskListClass> response) {
+            public void onResponse(@NonNull Call<DeskListClass> call, @NonNull Response<DeskListClass> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     progressBar.setVisibility(View.GONE);
 
                     DeskListClass deskResponse = response.body();
-
 
                     int code = response.code();
                     assert deskResponse != null;
@@ -107,7 +100,7 @@ public class OrderFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DeskListClass> call, Throwable t) {
+            public void onFailure(@NonNull Call<DeskListClass> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "An error has occurred" + t.getMessage(),
                         Toast.LENGTH_LONG).show();
                 System.out.println(t.getMessage());

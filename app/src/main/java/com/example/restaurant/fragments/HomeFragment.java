@@ -25,6 +25,7 @@ import com.example.restaurant.adapters.GroupAdapter;
 import com.example.restaurant.apiinterface.ProductApi;
 import com.example.restaurant.bundleinterface.OnInterfaceListener;
 import com.example.restaurant.model.Product;
+import com.example.restaurant.retrofit.ApiUtils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -45,11 +46,10 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
     RecyclerView recyclerViewGroup;
     Button createOrder;
     Double totalPrice = 0.0;
-    ArrayList<Product> productArrayList;
-    ArrayList<Product> cart = new ArrayList<>();
-    List<String> categoriesList;
+    private ArrayList<Product> productArrayList;
+    private ArrayList<Product> cart = new ArrayList<>();
+    private List<String> categoriesList;
     GroupAdapter groupAdapter;
-    Retrofit retrofit;
     ProductApi productApi;
 
     @Override
@@ -77,19 +77,13 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
     }
 
     private void productInit() {
-        //Retrofit initializer, used to establish connection with server.
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3106")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        //Calling interface with endpoint
-        productApi = retrofit.create(ProductApi.class);
+        productApi = ApiUtils.getProductApi();
         Call<List<Product>> getProducts = productApi.getProducts();
 
         //Creating callback with necessary logic
         getProducts.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 //Returning list of products with response body
                 List<Product> productResponse = response.body();
 
@@ -107,8 +101,8 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(getContext(), "An error has occurred" + t.getMessage(),
+            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                Toast.makeText(requireContext(), "An error has occurred: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
                 System.out.println(t.getMessage());
             }

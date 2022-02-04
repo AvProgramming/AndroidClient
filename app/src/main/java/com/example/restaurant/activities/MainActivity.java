@@ -1,5 +1,6 @@
 package com.example.restaurant.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_frame_layout, fragment);

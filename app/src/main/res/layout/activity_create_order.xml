@@ -16,12 +16,12 @@
             app:startIconDrawable="@android:drawable/ic_menu_edit"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/logoRestaurant">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Client ID" />
+                android:hint="@string/client_id" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,14 +39,14 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Restaurant ID" />
+                android:hint="@string/restaurant_id" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:srcCompat="@drawable/restaurant"
-            android:id="@+id/imageView"
+            android:id="@+id/logoRestaurant"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
             android:id="@+id/linearLayout">
 
         <TextView
-                android:text="Your products"
+                android:text="@string/your_products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/yourProducts"
@@ -91,12 +91,11 @@
             android:layout_marginBottom="24dp"
             app:backgroundTint="#33EAA9"
             android:id="@+id/submit"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textColor="#000000"
-            android:text="Submit" />
+            android:text="@string/submit" />
 
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/totalPriceCreated"
