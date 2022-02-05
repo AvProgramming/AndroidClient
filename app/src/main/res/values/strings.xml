@@ -6,4 +6,8 @@
     <string name="orders">Orders</string>
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
+    <string name="client_id">Client ID</string>
+    <string name="restaurant_id">Restaurant ID</string>
+    <string name="your_products">Your products</string>
+    <string name="submit">Submit</string>
 </resources>
