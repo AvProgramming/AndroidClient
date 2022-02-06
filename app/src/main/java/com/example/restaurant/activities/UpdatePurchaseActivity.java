@@ -2,12 +2,15 @@ package com.example.restaurant.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.SearchEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,13 +45,10 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
         orderType = findViewById(R.id.orderAutoStatus);
         deleteOrder = findViewById(R.id.deleteOrderBtn);
         updateOrder = findViewById(R.id.updateOrderBtn);
+
         getBundle();
-
         adapterInit();
-
         purchaseApi = ApiUtils.getPurchaseApi();
-
-        System.out.println(purchase);
 
         deleteOrder.setOnClickListener(view -> {
             Call<Purchase> call = purchaseApi.deletePurchase(purchase.getId());
@@ -56,8 +56,7 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
             call.enqueue(new Callback<Purchase>() {
                 @Override
                 public void onResponse(@NonNull Call<Purchase> call, @NonNull Response<Purchase> response) {
-                    if (response.isSuccessful()) {
-                        assert response.body() != null;
+                    if (response.isSuccessful() && response.body() != null) {
                         System.out.println((response.body().toString()));
                         Log.i("LOG", "delete submitted to API." + response.body().toString());
                         endActivity();
@@ -65,7 +64,7 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure(@NonNull Call<Purchase> call, @NonNull Throwable t) {
-                    System.out.println(t.getMessage());
+                    Log.e("Error: ", "Something went wrong: " + t.getMessage());
                 }
             });
         });
@@ -76,8 +75,7 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
             call.enqueue(new Callback<Purchase>() {
                 @Override
                 public void onResponse(@NonNull Call<Purchase> call, @NonNull Response<Purchase> response) {
-                    if (response.isSuccessful()) {
-                        assert response.body() != null;
+                    if (response.isSuccessful() && response.body() != null) {
                         System.out.println((response.body().toString()));
                         Log.i("LOG", "update submitted to API." + response.body().toString());
                         endActivity();
@@ -85,7 +83,7 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure(@NonNull Call<Purchase> call, @NonNull Throwable t) {
-                    System.out.println(t.getMessage());
+                    Log.e("Error: ", "Something went wrong: " + t.getMessage());
                 }
             });
         });

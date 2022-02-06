@@ -74,7 +74,7 @@ public class CreateOrderActivity extends AppCompatActivity {
             if (Objects.requireNonNull(personId.getEditText()).getText().toString().isEmpty() || Objects.requireNonNull(restaurantIdInput.getEditText()).getText().toString().isEmpty()) {
                 Snackbar.make(constraintLayout, "You can't have null person or null restaurant", BaseTransientBottomBar.LENGTH_SHORT).
                         setAction("Action", event -> System.out.println("Name is null")).show();
-                Log.e("Error: ", "Something went wrong");
+                Log.e("Error: ", "You can't have null person or null restaurant");
             } else {
 
                 List<String> contentList = getStrings();
@@ -144,8 +144,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         call.enqueue(new Callback<Purchase>() {
             @Override
             public void onResponse(@NonNull Call<Purchase> call, @NonNull Response<Purchase> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
+                if (response.isSuccessful() && response.body() != null) {
                     System.out.println((response.body().toString()));
                     Log.i("LOG", "post submitted to API." + response.body().toString());
                 }
@@ -153,7 +152,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Purchase> call, @NonNull Throwable t) {
-                System.out.println(t.getMessage());
+                Log.e("Error: ", "Something went wrong: " + t.getMessage());
             }
         });
     }

@@ -3,6 +3,7 @@ package com.example.restaurant.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,25 +76,28 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
         getProducts.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
-                //Returning list of products with response body
-                List<Product> productResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.i("LOG", "get submitted from API." + response.body().toString());
+                    //Returning list of products with response body
+                    List<Product> productResponse = response.body();
 
-                assert productResponse != null;
-                productArrayList = (ArrayList<Product>) productResponse;
-                categoriesList = new ArrayList<>();
+                    assert productResponse != null;
+                    productArrayList = (ArrayList<Product>) productResponse;
+                    categoriesList = new ArrayList<>();
 
-                getCategories();
+                    getCategories();
 
-                //Setting group recycler view adapter which contains categories of products
-                groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext(), HomeFragment.this);
+                    //Setting group recycler view adapter which contains categories of products
+                    groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext(), HomeFragment.this);
 
-                recyclerViewGroup.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerViewGroup.setAdapter(groupAdapter);
+                    recyclerViewGroup.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerViewGroup.setAdapter(groupAdapter);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
-                Toast.makeText(requireContext(), "An error has occurred: " + t.getMessage(),
+                Toast.makeText(getContext(), "An error has occurred: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
                 System.out.println(t.getMessage());
             }
@@ -124,6 +128,7 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
         totalPrice += product.getPrice();
         createOrder.setText(String.format("Total price is: %.3f", totalPrice));
     }
+
     //Setting price if remove button is pressed
     @Override
     public void onRemoveInterfaceChanged(Product product) {
@@ -131,7 +136,7 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
 
         totalPrice -= product.getPrice();
         createOrder.setText(String.format("Total price is: %.3f", totalPrice));
-        if (totalPrice==0) {
+        if (totalPrice == 0) {
             createOrder.setVisibility(View.GONE);
         }
     }

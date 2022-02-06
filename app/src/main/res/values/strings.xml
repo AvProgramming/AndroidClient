@@ -22,4 +22,10 @@
     <string name="select">Select</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+    <string name="done">DONE</string>
+    <string name="processing">PROCESSING</string>
+    <string name="open">OPEN</string>
+    <string name="price_25"><![CDATA[Price > 25]]></string>
+    <string name="price_50"><![CDATA[Price >50]]></string>
+    <string name="price_75"><![CDATA[Price > 75]]></string>
 </resources>

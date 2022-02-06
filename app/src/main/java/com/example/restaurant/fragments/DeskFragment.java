@@ -1,6 +1,7 @@
 package com.example.restaurant.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,8 @@ public class DeskFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<DeskListClass> call, @NonNull Response<DeskListClass> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.i("LOG", "get submitted from API." + response.body().toString());
+
                     progressBar.setVisibility(View.GONE);
 
                     DeskListClass deskResponse = response.body();
@@ -102,7 +105,7 @@ public class DeskFragment extends Fragment {
             public void onFailure(@NonNull Call<DeskListClass> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "An error has occurred" + t.getMessage(),
                         Toast.LENGTH_LONG).show();
-                System.out.println(t.getMessage());
+                Log.e("Error: ", "Something went wrong: " + t.getMessage());
             }
         });
     }
