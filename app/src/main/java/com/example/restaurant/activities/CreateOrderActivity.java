@@ -20,6 +20,7 @@ import com.example.restaurant.model.Client;
 import com.example.restaurant.model.Product;
 import com.example.restaurant.model.Purchase;
 import com.example.restaurant.model.Restaurant;
+import com.example.restaurant.model.enumeral.PurchaseStatus;
 import com.example.restaurant.retrofit.ApiUtils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -126,7 +127,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
         String currentTime = sdf.format(dt);
 
-        return new Purchase(currentTime, content, (long) totalPrice, "OPEN", (new Client(clientId)), (new Restaurant(restaurantId)));
+        return new Purchase(currentTime, content, (long) totalPrice, PurchaseStatus.OPEN, (new Client(clientId)), (new Restaurant(restaurantId)));
     }
 
     //Finalizing activity after successful sending of object to server
@@ -138,7 +139,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     //Sending post to server
     private void sendPost(Purchase purchase) {
-        Call<Purchase> call = purchaseApi.savePost(purchase);
+        Call<Purchase> call = purchaseApi.savePurchase(purchase);
 
         call.enqueue(new Callback<Purchase>() {
             @Override

@@ -3,34 +3,33 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.OrderFragment">
+        tools:context=".fragments.DeskFragment">
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:id="@+id/NestedScrollViewOrders">
+            android:id="@+id/NestedScrollViewDesks">
 
         <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/orderRecyclerView"
-                    tools:listitem="@layout/order_list_view"
-                    android:nestedScrollingEnabled="false">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                    android:id="@+id/deskRecyclerView"
+                    tools:listitem="@layout/desks_list_view"
+                    android:nestedScrollingEnabled="false" />
 
             <ProgressBar
                     style="?android:attr/progressBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/OrderProgressBar" />
+                    android:id="@+id/ProgressBarDesks" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </FrameLayout>

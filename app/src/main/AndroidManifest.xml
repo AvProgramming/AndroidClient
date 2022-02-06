@@ -13,6 +13,11 @@
             android:theme="@style/Theme.Restaurant"
             android:usesCleartextTraffic="true">
         <activity
+                android:name=".activities.UpdatePurchaseActivity"
+                android:exported="false"
+                android:label="@string/title_activity_update_purchase"
+                android:theme="@style/Theme.Restaurant.NoActionBar" />
+        <activity
                 android:name=".activities.CreateOrderActivity"
                 android:exported="false" />
         <activity

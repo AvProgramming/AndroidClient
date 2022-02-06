@@ -1,6 +1,6 @@
 package com.example.restaurant.apiinterface;
 
-import com.example.restaurant.model.DeskListClass;
+import com.example.restaurant.model.listmodels.DeskListClass;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

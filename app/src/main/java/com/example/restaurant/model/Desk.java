@@ -1,11 +1,12 @@
 package com.example.restaurant.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Desk {
+public class Desk implements Serializable {
 
     @SerializedName("id")
     @Expose

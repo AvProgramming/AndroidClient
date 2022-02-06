@@ -89,7 +89,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_name);
-            recyclerViewMember = itemView.findViewById(R.id.rv_member);
+            recyclerViewMember = itemView.findViewById(R.id.RecyclerViewMember);
         }
     }
 }

@@ -3,7 +3,9 @@ package com.example.restaurant.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
 
     @SerializedName("id")
     @Expose
