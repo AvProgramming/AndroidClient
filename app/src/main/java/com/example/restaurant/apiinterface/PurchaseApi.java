@@ -18,7 +18,7 @@ public interface PurchaseApi {
     @POST("/purchases/")
     Call<Purchase> savePurchase(@Body Purchase purchase);
 
-    @GET("/purchases/pagination/{page}/4")
+    @GET("/purchases/pagination/{page}/5")
     Call<PurchaseListClass> getPurchases(@Path("page") Integer page);
 
     @GET("/purchases/{id}")
@@ -30,6 +30,6 @@ public interface PurchaseApi {
     @PATCH("/purchases/{id}")
     Call<Purchase> updatePurchase(@Body Purchase purchase, @Path("id") Long id);
 
-    @GET("/purchases/pagination/{page}/4")
+    @GET("/purchases/pagination/{page}/5")
     Call<PurchaseListClass> getByFilter(@Path("page") Integer id, @Query("field") PurchaseStatus status);
 }

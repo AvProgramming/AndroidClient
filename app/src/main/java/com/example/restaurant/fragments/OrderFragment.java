@@ -24,6 +24,7 @@ import com.example.restaurant.model.Purchase;
 import com.example.restaurant.model.enumeral.PurchaseStatus;
 import com.example.restaurant.model.listmodels.PurchaseListClass;
 import com.example.restaurant.retrofit.ApiUtils;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
@@ -71,32 +72,47 @@ public class OrderFragment extends Fragment {
         enqueueMethod();
         searchViewInit();
 
+        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            page = 0;
+            purchaseArrayList.clear();
+            chipGroupOptionMethod(checkedId);
+        });
+
         //Paging the recycler view on load resources
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                 page++;
                 progressBar.setVisibility(View.VISIBLE);
+                int checked;
+                checked = chipGroup.getCheckedChipId();
+                System.out.println(checked);
 
-                enqueueMethod();
+
+                if (checked == -1) {
+                    enqueueMethod();
+                } else {
+                    chipGroupOptionMethod(checked);
+                }
             }
         });
-
-        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.chipOpen:
-                    filterMethod(PurchaseStatus.OPEN);
-                    break;
-                case R.id.chipDone:
-                    filterMethod(PurchaseStatus.DONE);
-                    break;
-                case R.id.chipProcessing:
-                    filterMethod(PurchaseStatus.PROCESSING);
-                    break;
-            }
-        });
-
         return view;
     }
+
+
+    private void chipGroupOptionMethod(int checkedId) {
+        switch (checkedId) {
+            case R.id.chipOpen:
+                filterMethod(PurchaseStatus.OPEN);
+                break;
+            case R.id.chipDone:
+                filterMethod(PurchaseStatus.DONE);
+                break;
+            case R.id.chipProcessing:
+                filterMethod(PurchaseStatus.PROCESSING);
+                break;
+        }
+    }
+
 
     private void filterMethod(PurchaseStatus status) {
         Call<PurchaseListClass> call = purchaseApi.getByFilter(page, status);
@@ -105,11 +121,12 @@ public class OrderFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<PurchaseListClass> call, @NonNull Response<PurchaseListClass> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
 
                     PurchaseListClass purchase = response.body();
 
                     Log.i("LOG", "Search successfully ended and retrieved a body. " + response.body().toString());
-                    purchaseArrayList.clear();
+
 
                     purchaseArrayList.addAll(purchase.getPurchases());
                     orderAdapter.notifyDataSetChanged();
