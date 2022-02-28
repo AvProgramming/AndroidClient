@@ -3,6 +3,7 @@ package com.example.restaurant.retrofit;
 import com.example.restaurant.apiinterface.DeskApi;
 import com.example.restaurant.apiinterface.ProductApi;
 import com.example.restaurant.apiinterface.PurchaseApi;
+import com.example.restaurant.apiinterface.UserApi;
 
 public class ApiUtils {
 
@@ -21,5 +22,9 @@ public class ApiUtils {
 
     public static PurchaseApi getPurchaseApi() {
         return RetrofitClient.getClient(BASE_URL).create(PurchaseApi.class);
+    }
+
+    public static UserApi getUserApi() {
+        return RetrofitClient.getClient(BASE_URL).create(UserApi.class);
     }
 }

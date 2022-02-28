@@ -3,6 +3,7 @@
         package="com.example.restaurant">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
             android:allowBackup="true"
@@ -13,6 +14,19 @@
             android:theme="@style/Theme.Restaurant"
             android:usesCleartextTraffic="true">
         <activity
+                android:name=".login.login.RegisterActivity"
+                android:exported="false" />
+        <activity
+                android:name=".login.login.LoginActivity"
+                android:exported="true"
+                android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
                 android:name=".activities.UpdatePurchaseActivity"
                 android:exported="false"
                 android:label="@string/title_activity_update_purchase"
@@ -22,13 +36,7 @@
                 android:exported="false" />
         <activity
                 android:name=".activities.MainActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                android:exported="false"></activity>
     </application>
 
 </manifest>

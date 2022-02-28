@@ -11,6 +11,22 @@ public class Client implements Serializable {
     @Expose
     private Long id;
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("password")
+    @Expose
+    private String password;
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    public Client() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -19,24 +35,48 @@ public class Client implements Serializable {
         this.id = id;
     }
 
+    public Client(Long id, String name, String password, String email) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Client.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("id");
-        sb.append('=');
-        sb.append(((this.id == null)?"<null>":this.id));
-        sb.append(',');
-        if (sb.charAt((sb.length()- 1)) == ',') {
-            sb.setCharAt((sb.length()- 1), ']');
-        } else {
-            sb.append(']');
-        }
-        return sb.toString();
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

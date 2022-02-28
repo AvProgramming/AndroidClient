@@ -28,4 +28,18 @@
     <string name="price_25"><![CDATA[Price > 25]]></string>
     <string name="price_50"><![CDATA[Price >50]]></string>
     <string name="price_75"><![CDATA[Price > 75]]></string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >8 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">login</string>
+    <string name="register">Register</string>
+    <string name="user_name">User name</string>
+    <string name="remember_me">Remember me</string>
+    <string name="welcome_login">Welcome</string>
 </resources>
