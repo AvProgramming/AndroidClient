@@ -5,19 +5,30 @@ package com.example.restaurant.model;
  */
 public class LoggedInUser {
 
-    private String userId;
+    private Long userId;
     private String displayName;
 
-    public LoggedInUser(String userId, String displayName) {
+    public LoggedInUser(Long userId, String displayName) {
         this.userId = userId;
         this.displayName = displayName;
     }
 
-    public String getUserId() {
+    public LoggedInUser() {
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

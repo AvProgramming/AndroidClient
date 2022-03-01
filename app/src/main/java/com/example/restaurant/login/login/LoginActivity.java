@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.restaurant.R;
 import com.example.restaurant.activities.MainActivity;
+import com.example.restaurant.apiinterface.UserApi;
 import com.example.restaurant.databinding.ActivityLoginBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -57,18 +59,17 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (loginResult.getError() != null) {
-                showLoginFailed(loginResult.getError());
+                showLoginFailed();
+
             }
             if (loginResult.getSuccess() != null) {
                 updateUiWithUser(loginResult.getSuccess());
+                setResult(Activity.RESULT_OK);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
-            setResult(Activity.RESULT_OK);
-
-            //Complete and destroy login activity once successful
-            finish();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
         });
 
         TextWatcher afterEmailChangedListener = new TextWatcher() {
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString());
+                loginViewModel.loginDataChanged(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         };
 
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.passDataChanged(passwordEditText.getText().toString());
+                loginViewModel.passDataChanged(passwordEditText.getText().toString(), usernameEditText.getText().toString());
             }
         };
         passwordEditText.addTextChangedListener(afterPassChangedListener);
@@ -119,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loginButton.setOnClickListener(v -> {
-
             loginViewModel.login(usernameEditText.getText().toString(),
                     passwordEditText.getText().toString());
         });
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void showLoginFailed() {
+        Toast.makeText(getApplicationContext(),"Email or password is invalid", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,13 +1,10 @@
 package com.example.restaurant.login.login;
 
-import android.util.Patterns;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.restaurant.R;
-import com.example.restaurant.login.data.LoginRepository;
 
 import java.util.regex.Pattern;
 
@@ -26,23 +23,24 @@ public class RegisterViewModel extends ViewModel {
     }
 
 
-    public void registerEmailChanged(String username) {
-        if (!isUserNameValid(username)) {
+    public void registerEmailChanged(String email, String password) {
+        if (!isEmailValid(email)) {
             registerFormState.setValue(new RegisterFormState(R.string.invalid_username, null));
-        }  else {
+        } else if (isEmailValid(email) && isPasswordValid(password)) {
             registerFormState.setValue(new RegisterFormState(true));
         }
     }
 
-    public void registerPassChanged(String password) {
+    public void registerPassChanged(String password, String email) {
         if (!isPasswordValid(password)) {
             registerFormState.setValue(new RegisterFormState(null, R.string.invalid_password));
-        } else {
+        } else if (isEmailValid(email) && isPasswordValid(password)) {
             registerFormState.setValue(new RegisterFormState(true));
         }
     }
+
     // A placeholder username validation check
-    private boolean isUserNameValid(String email) {
+    private boolean isEmailValid(String email) {
         if (email == null) {
             return false;
         }

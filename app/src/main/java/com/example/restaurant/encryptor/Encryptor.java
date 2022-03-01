@@ -13,21 +13,15 @@ public class Encryptor {
     public static String generateStrongPasswordHash(String password)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 1000;
+        String sr = ("SHA1PRNG");
         char[] chars = password.toCharArray();
-        byte[] salt = getSalt();
+        byte[] salt = sr.getBytes();
 
         PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
         byte[] hash = skf.generateSecret(spec).getEncoded();
         return iterations + ":" + toHex(salt) + ":" + toHex(hash);
-    }
-
-    private static byte[] getSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
     }
 
     private static String toHex(byte[] array) {

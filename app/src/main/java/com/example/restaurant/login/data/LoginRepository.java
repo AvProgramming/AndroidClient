@@ -1,5 +1,7 @@
 package com.example.restaurant.login.data;
 
+import com.example.restaurant.bundleinterface.OnLoginClickListener;
+import com.example.restaurant.model.Client;
 import com.example.restaurant.model.LoggedInUser;
 
 /**
@@ -17,8 +19,12 @@ public class LoginRepository {
     private LoggedInUser user = null;
 
     // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
+    LoginRepository(LoginDataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public LoginRepository() {
+
     }
 
     public static LoginRepository getInstance(LoginDataSource dataSource) {
@@ -43,9 +49,9 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result<LoggedInUser> login(String password, int[] code, Client client) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
+        Result<LoggedInUser> result = dataSource.login(password, code, client);
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
         }

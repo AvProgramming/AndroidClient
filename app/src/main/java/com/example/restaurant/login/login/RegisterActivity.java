@@ -55,6 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
         final Button registrationBtn = registerBinding.confirmRegistrationBtn;
         progressBar = registerBinding.registerProgressBar;
 
+        registrationBtn.setBackgroundColor(getColor(R.color.purple_700));
+
         progressBar.setVisibility(View.GONE);
 
         registerViewModel.getRegisterFormState().observe(this, loginFormState -> {
@@ -62,6 +64,9 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
             registrationBtn.setEnabled(loginFormState.isDataValid());
+            if (registrationBtn.isEnabled()) {
+                registrationBtn.setBackgroundColor(getColor(R.color.button));
+            }
             if (loginFormState.getUsernameError() != null) {
                 emailEdittext.setError(getString(loginFormState.getUsernameError()));
             }
@@ -83,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                registerViewModel.registerEmailChanged(emailEdittext.getText().toString());
+                registerViewModel.registerEmailChanged(emailEdittext.getText().toString(), passwordEditText.getText().toString());
             }
         };
 
@@ -100,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                registerViewModel.registerPassChanged(passwordEditText.getText().toString());
+                registerViewModel.registerPassChanged(passwordEditText.getText().toString(), emailEdittext.getText().toString());
             }
         };
         emailEdittext.addTextChangedListener(afterEmailChangedListener);

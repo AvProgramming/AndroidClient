@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'com.google.android.gms:play-services-basement:17.6.0'
     testImplementation 'junit:junit:'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.testng:testng:6.9.6'
