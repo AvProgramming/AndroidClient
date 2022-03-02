@@ -17,6 +17,8 @@ import com.example.restaurant.model.Client;
 import com.example.restaurant.model.LoggedInUser;
 import com.example.restaurant.retrofit.ApiUtils;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +28,8 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
@@ -106,7 +110,7 @@ public class LoginViewModel extends ViewModel {
             return false;
         }
         if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+            return VALID_EMAIL_ADDRESS_REGEX.matcher(username).matches();
         } else {
             return !username.trim().isEmpty();
         }

@@ -40,11 +40,16 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = binding.loginBtn;
         final Button registerButton = binding.toRegisterActivityBtn;
 
+        loginButton.setBackgroundColor(getColor(R.color.purple_700));
+
         loginViewModel.getLoginFormState().observe(this, loginFormState -> {
             if (loginFormState == null) {
                 return;
             }
             loginButton.setEnabled(loginFormState.isDataValid());
+            if (loginButton.isEnabled()) {
+                loginButton.setBackgroundColor(getColor(R.color.button));
+            }
             if (loginFormState.getUsernameError() != null) {
                 usernameEditText.setError(getString(loginFormState.getUsernameError()));
             }
