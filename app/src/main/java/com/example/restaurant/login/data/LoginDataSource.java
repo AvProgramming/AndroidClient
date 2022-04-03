@@ -1,28 +1,23 @@
 package com.example.restaurant.login.data;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.example.restaurant.apiinterface.UserApi;
-import com.example.restaurant.bundleinterface.OnLoginClickListener;
 import com.example.restaurant.encryptor.Encryptor;
 import com.example.restaurant.model.Client;
 import com.example.restaurant.model.LoggedInUser;
-import com.example.restaurant.retrofit.ApiUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    LoggedInUser user = new LoggedInUser();
-    Result<LoggedInUser> result;
+    private LoggedInUser user = new LoggedInUser();
+    private Result<LoggedInUser> result;
+    private LoginConfig loginConfig;
 
     public Result<LoggedInUser> login(String password, int[] code, Client client) {
 
@@ -53,7 +48,8 @@ public class LoginDataSource {
         }
     }
 
-    public void logout() {
-        // TODO: revoke authentication
+    public void logout(Context context) {
+        loginConfig = new LoginConfig(context);
+        loginConfig.updateUserLoginStatus(false);
     }
 }

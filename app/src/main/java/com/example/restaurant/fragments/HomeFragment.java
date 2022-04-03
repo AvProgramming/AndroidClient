@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
         //Initializing view for fragment, permit to see all what you create on your device
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerViewGroup = view.findViewById(R.id.groupRecyclerView);
-        createOrder = view.findViewById(R.id.createOrder);
+        createOrder = view.findViewById(R.id.logOut);
         cl = view.findViewById(R.id.cl);
 
         createOrder.setVisibility(View.GONE);

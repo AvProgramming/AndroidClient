@@ -1,6 +1,9 @@
 package com.example.restaurant.login.data;
 
-import com.example.restaurant.bundleinterface.OnLoginClickListener;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.restaurant.R;
 import com.example.restaurant.model.Client;
 import com.example.restaurant.model.LoggedInUser;
 
@@ -14,8 +17,6 @@ public class LoginRepository {
 
     private LoginDataSource dataSource;
 
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
 
     // private constructor : singleton access
@@ -38,15 +39,13 @@ public class LoginRepository {
         return user != null;
     }
 
-    public void logout() {
+    public void logout(Context context) {
         user = null;
-        dataSource.logout();
+        dataSource.logout(context);
     }
 
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
     }
 
     public Result<LoggedInUser> login(String password, int[] code, Client client) {

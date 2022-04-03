@@ -42,4 +42,8 @@
     <string name="user_name">User name</string>
     <string name="remember_me">Remember me</string>
     <string name="welcome_login">Welcome</string>
+    <string name="pref_file_key">pref_file_key</string>
+    <string name="pref_is_user_login">false</string>
+    <string name="pref_name_of_user">nameofuser</string>
+    <string name="enter_an_id">Enter an id...</string>
 </resources>

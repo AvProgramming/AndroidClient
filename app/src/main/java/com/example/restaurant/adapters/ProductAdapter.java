@@ -23,7 +23,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     LayoutInflater inflater;
     OnButtonClickListener listener;
     private ArrayList<Product> products;
-    private int counter = 0;
 
     public ProductAdapter(ArrayList<Product> products, Context context, OnButtonClickListener onButtonClickListener) {
         this.products = products;
@@ -41,6 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        final int[] counter = {0};
         Product product = products.get(position);
         holder.productName.setText(product.getProductName());
         holder.productPrice.setText(String.valueOf(product.getPrice()));
@@ -49,13 +49,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         //Button events for passing data from recyclerview to parent fragment
         holder.addButton.setOnClickListener(view -> {
-            holder.restButton.setEnabled(counter != 1);
-            counter++;
+            holder.restButton.setEnabled(counter[0] != 1);
+            counter[0]++;
+            holder.productCounter.setText(counter[0] + "x");
             listener.onAddButtonClick(products.get(position));
         });
         holder.restButton.setOnClickListener(view -> {
-            holder.restButton.setEnabled(counter != 1);
-            counter--;
+            holder.restButton.setEnabled(counter[0] != 1);
+            counter[0]--;
+            if (counter[0] != 0) {
+                holder.productCounter.setText(counter[0] + "x");
+            } else {
+                holder.productCounter.setText("");
+            }
+
             listener.onRemoveButtonClick(products.get(position));
         });
 
@@ -73,6 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private final TextView productName;
         private final TextView productPrice;
         private final Button addButton, restButton;
+        private final TextView productCounter;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +89,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productPrice = itemView.findViewById(R.id.productPrice);
             restButton = itemView.findViewById(R.id.removeButton);
             addButton = itemView.findViewById(R.id.addButton);
+            productCounter = itemView.findViewById(R.id.productCounter);
         }
     }
 }

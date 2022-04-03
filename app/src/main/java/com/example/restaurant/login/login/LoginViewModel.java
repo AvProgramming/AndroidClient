@@ -1,16 +1,15 @@
 package com.example.restaurant.login.login;
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Log;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Toast;
-
 import com.example.restaurant.R;
 import com.example.restaurant.apiinterface.UserApi;
+import com.example.restaurant.login.data.LoginConfig;
 import com.example.restaurant.login.data.LoginRepository;
 import com.example.restaurant.login.data.Result;
 import com.example.restaurant.model.Client;
@@ -27,7 +26,8 @@ public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-    private LoginRepository loginRepository;
+    private final LoginRepository loginRepository;
+    private LoginConfig loginConfig;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -47,8 +47,9 @@ public class LoginViewModel extends ViewModel {
     LoggedInUser user = new LoggedInUser();
     Client client;
 
-    public void login(String email, String password) {
+    public void login(String email, String password, boolean isRememberUserLogin, Context applicationContext) {
         int[] code = new int[1];
+        loginConfig = new LoginConfig(applicationContext);
 
         userApi = ApiUtils.getUserApi();
 
@@ -66,6 +67,10 @@ public class LoginViewModel extends ViewModel {
                         Log.i("LOG", "get submitted from API." + response.body().toString());
 
                         client = response.body();
+                        if (isRememberUserLogin) {
+                            loginConfig.updateUserLoginStatus(true);
+                            loginConfig.saveNameOfUser(client.getName());
+                        }
 
                         user.setUserId(client.getId());
                         user.setDisplayName(client.getName());

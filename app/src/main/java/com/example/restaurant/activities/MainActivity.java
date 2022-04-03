@@ -14,6 +14,8 @@ import com.example.restaurant.fragments.OrderFragment;
 import com.example.restaurant.fragments.HomeFragment;
 import com.example.restaurant.fragments.DeskFragment;
 import com.example.restaurant.fragments.ProfileFragment;
+import com.example.restaurant.login.data.LoginDataSource;
+import com.example.restaurant.login.data.LoginRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     return true;
                 case R.id.profile_nav:
-                    replaceFragment(new ProfileFragment());
+                    replaceFragment(new ProfileFragment(LoginRepository.getInstance(new LoginDataSource())));
                     return true;
                 case R.id.order_nav:
                     replaceFragment(new OrderFragment());
