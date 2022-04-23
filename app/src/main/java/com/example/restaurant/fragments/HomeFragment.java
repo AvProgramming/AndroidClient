@@ -1,48 +1,54 @@
 package com.example.restaurant.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurant.R;
-import com.example.restaurant.activities.CreateOrderActivity;
-import com.example.restaurant.adapters.GroupAdapter;
+import com.example.restaurant.adapters.CategoryAdapter;
+import com.example.restaurant.adapters.PopularAdapter;
 import com.example.restaurant.apiinterface.ProductApi;
-import com.example.restaurant.bundleinterface.OnInterfaceListener;
+import com.example.restaurant.model.Category;
 import com.example.restaurant.model.Product;
 import com.example.restaurant.retrofit.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements OnInterfaceListener {
+public class HomeFragment extends Fragment {
 
-    ConstraintLayout cl;
-    RecyclerView recyclerViewGroup;
-    Button createOrder;
-    Double totalPrice = 0.0;
-    private ArrayList<Product> productArrayList;
-    private ArrayList<Product> cart = new ArrayList<>();
-    private List<String> categoriesList;
-    GroupAdapter groupAdapter;
+    RecyclerView categoryRecyclerView, popRecyclerView;
+    CategoryAdapter categoryAdapter;
+    PopularAdapter popularAdapter;
     ProductApi productApi;
+    private ArrayList<Product> productArrayList;
+    private List<Product> popularProducts = new ArrayList<>();
+
+    static ArrayList<Category> categories = new ArrayList<>();
+
+    static {
+        categories.add(new Category("Pizza", R.drawable.pizza));
+        categories.add(new Category("Burger",  R.drawable.burger));
+        categories.add(new Category("Ramen",  R.drawable.ramen));
+        categories.add(new Category("Sushi",  R.drawable.sushi));
+        categories.add(new Category("Drinks",  R.drawable.drink));
+        categories.add(new Category("All",  R.drawable.all_categories));
+    }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,22 +56,22 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
 
         //Initializing view for fragment, permit to see all what you create on your device
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerViewGroup = view.findViewById(R.id.groupRecyclerView);
-        createOrder = view.findViewById(R.id.logOut);
-        cl = view.findViewById(R.id.cl);
+        categoryRecyclerView = view.findViewById(R.id.categoriesRecyclerView);
+        popRecyclerView = view.findViewById(R.id.popularRecyvlerView);
 
-        createOrder.setVisibility(View.GONE);
+        recyclerViewInit();
 
         productInit();
 
-        createOrder.setOnClickListener(event -> {
-            Intent intent = new Intent(getContext(), CreateOrderActivity.class);
-            intent.putExtra("cart", cart);
-            requireContext().startActivity(intent);
-        });
-
-
         return view;
+    }
+
+    private void recyclerViewInit() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        categoryRecyclerView.setLayoutManager(linearLayoutManager);
+
+        categoryAdapter = new CategoryAdapter(getContext(), categories);
+        categoryRecyclerView.setAdapter(categoryAdapter);
     }
 
     private void productInit() {
@@ -77,24 +83,25 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.i("LOG", "get submitted from API." + response.body().toString());
+                    Log.i("LOG", "get submitted from API." + response.body());
                     //Returning list of products with response body
                     List<Product> productResponse = response.body();
 
                     assert productResponse != null;
                     productArrayList = (ArrayList<Product>) productResponse;
-                    categoriesList = new ArrayList<>();
 
-                    getCategories();
+                    popularProducts.add(productArrayList.get(2));
+                    popularProducts.add(productArrayList.get(5));
+                    popularProducts.add(productArrayList.get(6));
+                    popularProducts.add(productArrayList.get(8));
 
-                    //Setting group recycler view adapter which contains categories of products
-                    groupAdapter = new GroupAdapter(categoriesList, productArrayList, getContext(), HomeFragment.this);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    popRecyclerView.setLayoutManager(linearLayoutManager);
 
-                    recyclerViewGroup.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recyclerViewGroup.setAdapter(groupAdapter);
+                    popularAdapter = new PopularAdapter(getContext(), popularProducts);
+                    popRecyclerView.setAdapter(popularAdapter);
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "An error has occurred: " + t.getMessage(),
@@ -102,42 +109,5 @@ public class HomeFragment extends Fragment implements OnInterfaceListener {
                 System.out.println(t.getMessage());
             }
         });
-    }
-
-    //Filtering products to get all unique categories from list
-    private void getCategories() {
-        for (int i = 0; i < productArrayList.size(); i++) {
-            categoriesList.add(productArrayList.get(i).getType());
-        }
-        categoriesList = categoriesList.stream()
-                .distinct().collect(Collectors.toList());
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
-
-    //Setting price on order confirmation button if add button is pressed
-    @Override
-    public void onAddingInterfaceChanged(Product product) {
-        cart.add(product);
-
-        createOrder.setVisibility(View.VISIBLE);
-
-        totalPrice += product.getPrice();
-        createOrder.setText(String.format("Total price is: %.3f", totalPrice));
-    }
-
-    //Setting price if remove button is pressed
-    @Override
-    public void onRemoveInterfaceChanged(Product product) {
-        cart.remove(product);
-
-        totalPrice -= product.getPrice();
-        createOrder.setText(String.format("Total price is: %.3f", totalPrice));
-        if (totalPrice == 0) {
-            createOrder.setVisibility(View.GONE);
-        }
     }
 }

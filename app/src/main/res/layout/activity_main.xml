@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:background="@drawable/background_app"
+        android:fitsSystemWindows="true"
         tools:context=".activities.MainActivity">
 
     <FrameLayout
@@ -14,9 +15,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/main_frame_layout">
-
-    </FrameLayout>
+            android:id="@+id/main_frame_layout"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
@@ -25,6 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:menu="@menu/bottom_nav_bar"/>
+            app:menu="@menu/bottom_nav_bar">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

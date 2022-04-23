@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         final Button registrationBtn = registerBinding.confirmRegistrationBtn;
         progressBar = registerBinding.registerProgressBar;
 
-        registrationBtn.setBackgroundColor(getColor(R.color.purple_700));
+        registrationBtn.setBackgroundColor(getColor(R.color.inactive_button));
 
         progressBar.setVisibility(View.GONE);
 

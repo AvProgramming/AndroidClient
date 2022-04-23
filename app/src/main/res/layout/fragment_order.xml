@@ -16,8 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
             <SearchView
                     android:id="@+id/searchOrders"
@@ -58,35 +57,6 @@
                         android:id="@+id/chipDone"
                         android:text="@string/done"
                         app:checkedIconTint="#00D4B4" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <com.google.android.material.chip.ChipGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:singleLine="true"
-                    app:singleSelection="true"
-                    android:id="@+id/priceChipGroup">
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipPrice25"
-                        android:text="@string/price_25" />
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipPrice50"
-                        android:text="@string/price_50" />
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipPrice75"
-                        android:text="@string/price_75" />
             </com.google.android.material.chip.ChipGroup>
 
             <androidx.recyclerview.widget.RecyclerView

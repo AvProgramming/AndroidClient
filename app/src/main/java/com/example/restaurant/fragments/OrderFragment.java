@@ -1,21 +1,16 @@
 package com.example.restaurant.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -29,7 +24,6 @@ import com.example.restaurant.model.Purchase;
 import com.example.restaurant.model.enumeral.PurchaseStatus;
 import com.example.restaurant.model.listmodels.PurchaseListClass;
 import com.example.restaurant.retrofit.ApiUtils;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
@@ -159,7 +153,7 @@ public class OrderFragment extends Fragment {
 
                             Purchase purchase = response.body();
 
-                            Log.i("LOG", "Search successfully ended and retrieved a body. " + response.body().toString());
+                            Log.i("LOG", "Search successfully ended and retrieved a body. " + response.body());
                             purchaseArrayList.clear();
 
                             purchaseArrayList.add(purchase);

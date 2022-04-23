@@ -9,7 +9,7 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://192.168.0.11:3106";
+    public static final String BASE_URL = "http://192.168.0.20:3106";
 
     public static DeskApi getDeskApi() {
         return RetrofitClient.getClient(BASE_URL).create(DeskApi.class);

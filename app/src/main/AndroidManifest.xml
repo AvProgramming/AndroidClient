@@ -14,18 +14,24 @@
             android:theme="@style/Theme.Restaurant"
             android:usesCleartextTraffic="true">
         <activity
-                android:name=".login.login.RegisterActivity"
+                android:name=".activities.ShowDetailActivity"
                 android:exported="false" />
         <activity
-                android:name=".login.login.LoginActivity"
-                android:exported="true"
-                android:label="@string/title_activity_login">
+                android:name=".activities.StartAnimActivity"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+                android:name=".login.login.RegisterActivity"
+                android:exported="false" />
+        <activity
+                android:name=".login.login.LoginActivity"
+                android:exported="true"
+                android:label="@string/title_activity_login" />
         <activity
                 android:name=".activities.UpdatePurchaseActivity"
                 android:exported="false"

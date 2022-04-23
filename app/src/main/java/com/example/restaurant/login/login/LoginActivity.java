@@ -2,12 +2,15 @@ package com.example.restaurant.login.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -43,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         final TextInputEditText passwordEditText = findViewById(R.id.loginPassword);
         final CheckBox rememberMe = findViewById(R.id.rememberMe);
         final Button loginButton = binding.loginBtn;
-        final Button registerButton = binding.toRegisterActivityBtn;
+        final TextView registerButton = binding.toRegisterActivityBtn;
 
-        loginButton.setBackgroundColor(getColor(R.color.purple_700));
+        loginButton.setBackgroundColor(getColor(R.color.inactive_button));
 
         loginViewModel.getLoginFormState().observe(this, loginFormState -> {
             if (loginFormState == null) {
