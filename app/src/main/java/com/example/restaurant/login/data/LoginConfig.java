@@ -31,7 +31,29 @@ public class LoginConfig {
         editor.apply();
     }
 
+    public void saveIdOfUser(Long id) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(context.getString(R.string.pref_id_of_user), Math.toIntExact(id));
+        editor.apply();
+    }
+
+    public void saveEmailAddress(String email) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(context.getString(R.string.pref_email_of_user), email);
+        editor.apply();
+    }
+
     public String getNameOfUser() {
         return sharedPreferences.getString(context.getString(R.string.pref_name_of_user), "Unknown");
     }
+
+    public Integer getIdOfUser() {
+        return sharedPreferences.getInt(context.getString(R.string.pref_id_of_user), 99999999);
+    }
+
+    public String getEmailOfUser() {
+        return sharedPreferences.getString(context.getString(R.string.pref_email_of_user), "email");
+    }
+
+
 }

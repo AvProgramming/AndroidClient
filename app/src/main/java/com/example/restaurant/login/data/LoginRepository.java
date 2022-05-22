@@ -1,9 +1,7 @@
 package com.example.restaurant.login.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.example.restaurant.R;
 import com.example.restaurant.model.Client;
 import com.example.restaurant.model.LoggedInUser;
 
@@ -44,8 +42,12 @@ public class LoginRepository {
         dataSource.logout(context);
     }
 
-    private void setLoggedInUser(LoggedInUser user) {
+    public void setLoggedInUser(LoggedInUser user) {
         this.user = user;
+    }
+
+    public LoggedInUser getLoggedInUser() {
+        return this.user;
     }
 
     public Result<LoggedInUser> login(String password, int[] code, Client client) {

@@ -1,6 +1,7 @@
 package com.example.restaurant.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurant.R;
+import com.example.restaurant.activities.ShowDetailActivity;
 import com.example.restaurant.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +47,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         Picasso.get().load(urlImage).fit().into(holder.prodImage);
 
         holder.addBtn.setOnClickListener(view -> {
-
+            Intent intent = new Intent(inflater.getContext(), ShowDetailActivity.class);
+            intent.putExtra("product", products.get(position));
+            holder.itemView.getContext().startActivity(intent);
         });
     }
 

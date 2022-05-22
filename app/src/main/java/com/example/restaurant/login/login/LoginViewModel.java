@@ -64,13 +64,15 @@ public class LoginViewModel extends ViewModel {
                     Log.i("LOG", "There is no such user with this email");
                 } else {
                     if (response.isSuccessful() && response.body() != null) {
-                        Log.i("LOG", "get submitted from API." + response.body().toString());
+                        Log.i("LOG", "get submitted from API." + response.body());
 
                         client = response.body();
                         if (isRememberUserLogin) {
                             loginConfig.updateUserLoginStatus(true);
-                            loginConfig.saveNameOfUser(client.getName());
                         }
+                        loginConfig.saveNameOfUser(client.getName());
+                        loginConfig.saveIdOfUser(client.getId());
+                        loginConfig.saveEmailAddress(client.getEmail());
 
                         user.setUserId(client.getId());
                         user.setDisplayName(client.getName());

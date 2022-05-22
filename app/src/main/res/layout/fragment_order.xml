@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".fragments.OrderFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -18,46 +18,13 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-            <SearchView
-                    android:id="@+id/searchOrders"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/search_view"
-                    android:queryHint="@string/enter_an_id"
-                    android:iconifiedByDefault="false" />
-
-            <com.google.android.material.chip.ChipGroup
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:singleLine="true"
-                    app:singleSelection="true"
-                    android:id="@+id/statusChipGroup">
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipOpen"
-                        android:text="@string/open"
-                        app:checkedIconTint="#00D4B4" />
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipProcessing"
-                        android:text="@string/processing"
-                        app:checkedIconTint="#00D4B4" />
-
-                <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chipDone"
-                        android:text="@string/done"
-                        app:checkedIconTint="#00D4B4" />
-            </com.google.android.material.chip.ChipGroup>
+                    android:text="@string/your_orders_is_here"
+                    android:textStyle="bold|normal"
+                    android:id="@+id/orderText"
+                    android:textSize="24sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

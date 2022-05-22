@@ -23,6 +23,14 @@ public class Client implements Serializable {
     @Expose
     private String email;
 
+    @SerializedName("phone_number")
+    @Expose
+    private Integer phone;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
     public Client() {
 
     }
@@ -70,6 +78,22 @@ public class Client implements Serializable {
         this.email = email;
     }
 
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -77,6 +101,8 @@ public class Client implements Serializable {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", phone=" + phone +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

@@ -1,12 +1,9 @@
-
 package com.example.restaurant.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Product implements Serializable {
+public class CartProduct {
 
     @SerializedName("id")
     @Expose
@@ -27,7 +24,12 @@ public class Product implements Serializable {
     @Expose
     private String type;
 
-    public Product(String productName, Double price, String imgUrl, Boolean vegan, String type) {
+    private Integer count;
+
+    public CartProduct() {
+    }
+
+    public CartProduct(String productName, Double price, String imgUrl, Boolean vegan, String type) {
         this.productName = productName;
         this.price = price;
         this.imgUrl = imgUrl;
@@ -35,7 +37,7 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public Product(Long id, String productName, Double price, String imgUrl, Boolean vegan, String type) {
+    public CartProduct(Long id, String productName, Double price, String imgUrl, Boolean vegan, String type) {
         this.id = id;
         this.productName = productName;
         this.price = price;
@@ -44,8 +46,22 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public Product() {
+    public CartProduct(Long id, String productName, Double price, String imgUrl, Boolean vegan, String type, Integer count) {
+        this.id = id;
+        this.productName = productName;
+        this.price = price;
+        this.imgUrl = imgUrl;
+        this.vegan = vegan;
+        this.type = type;
+        this.count = count;
+    }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Long getId() {
@@ -56,7 +72,7 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product withId(Long id) {
+    public CartProduct withId(Long id) {
         this.id = id;
         return this;
     }
@@ -69,7 +85,12 @@ public class Product implements Serializable {
         this.productName = productName;
     }
 
-    public Product withProductName(String productName) {
+    public CartProduct withCount (Integer count) {
+        this.count = count;
+        return this;
+    }
+
+    public CartProduct withProductName(String productName) {
         this.productName = productName;
         return this;
     }
@@ -82,7 +103,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Product withPrice(Double price) {
+    public CartProduct withPrice(Double price) {
         this.price = price;
         return this;
     }
@@ -95,7 +116,7 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Product withImgUrl(String imgUrl) {
+    public CartProduct withImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
         return this;
     }
@@ -108,7 +129,7 @@ public class Product implements Serializable {
         this.vegan = vegan;
     }
 
-    public Product withVegan(Boolean vegan) {
+    public CartProduct withVegan(Boolean vegan) {
         this.vegan = vegan;
         return this;
     }
@@ -121,7 +142,7 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public Product withType(String type) {
+    public CartProduct withType(String type) {
         this.type = type;
         return this;
     }

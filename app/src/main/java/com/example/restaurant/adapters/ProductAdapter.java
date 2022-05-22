@@ -1,6 +1,8 @@
 package com.example.restaurant.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurant.R;
-import com.example.restaurant.bundleinterface.OnButtonClickListener;
+import com.example.restaurant.activities.ShowDetailActivity;
 import com.example.restaurant.model.Product;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     LayoutInflater inflater;
-    OnButtonClickListener listener;
-    private ArrayList<Product> products;
+    private List<Product> products;
 
-    public ProductAdapter(ArrayList<Product> products, Context context, OnButtonClickListener onButtonClickListener) {
+    public ProductAdapter(List<Product> products, Context context) {
         this.products = products;
         this.inflater = LayoutInflater.from(context);
-        this.listener = onButtonClickListener;
     }
 
     @NonNull
@@ -38,36 +38,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(item);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        final int[] counter = {0};
         Product product = products.get(position);
         holder.productName.setText(product.getProductName());
-        holder.productPrice.setText(String.valueOf(product.getPrice()));
-
-        holder.restButton.setEnabled(false);
-
-        //Button events for passing data from recyclerview to parent fragment
-        holder.addButton.setOnClickListener(view -> {
-            holder.restButton.setEnabled(counter[0] != 1);
-            counter[0]++;
-            holder.productCounter.setText(counter[0] + "x");
-            listener.onAddButtonClick(products.get(position));
-        });
-        holder.restButton.setOnClickListener(view -> {
-            holder.restButton.setEnabled(counter[0] != 1);
-            counter[0]--;
-            if (counter[0] != 0) {
-                holder.productCounter.setText(counter[0] + "x");
-            } else {
-                holder.productCounter.setText("");
-            }
-
-            listener.onRemoveButtonClick(products.get(position));
-        });
-
+        holder.productPrice.setText(product.getPrice() + "€");
         String urlImage = product.getImgUrl();
         Picasso.get().load(urlImage).fit().into(holder.imageView);
+        holder.add.setOnClickListener(view -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ShowDetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("product", products.get(position));
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
@@ -79,17 +63,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private final ImageView imageView;
         private final TextView productName;
         private final TextView productPrice;
-        private final Button addButton, restButton;
-        private final TextView productCounter;
+        private final Button add;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.popProdImg);
+            add = itemView.findViewById(R.id.addInCategoryButton);
+            imageView = itemView.findViewById(R.id.prodImg);
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.productPrice);
-            restButton = itemView.findViewById(R.id.removeButton);
-            addButton = itemView.findViewById(R.id.addButton);
-            productCounter = itemView.findViewById(R.id.productCounter);
         }
     }
 }

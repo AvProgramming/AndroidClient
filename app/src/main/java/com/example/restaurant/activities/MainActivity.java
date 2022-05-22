@@ -2,7 +2,6 @@ package com.example.restaurant.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,9 +10,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.restaurant.R;
 import com.example.restaurant.databinding.ActivityMainBinding;
-import com.example.restaurant.fragments.OrderFragment;
+import com.example.restaurant.fragments.CartFragment;
 import com.example.restaurant.fragments.HomeFragment;
-import com.example.restaurant.fragments.DeskFragment;
+import com.example.restaurant.fragments.OrderFragment;
 import com.example.restaurant.fragments.ProfileFragment;
 import com.example.restaurant.login.data.LoginDataSource;
 import com.example.restaurant.login.data.LoginRepository;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        replaceFragment(new HomeFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new OrderFragment());
                     return true;
                 case R.id.desk_nav:
-                    replaceFragment(new DeskFragment());
+                    replaceFragment(new CartFragment());
                     return true;
             }
 

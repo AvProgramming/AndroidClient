@@ -1,10 +1,12 @@
 package com.example.restaurant.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import com.example.restaurant.R;
 import com.example.restaurant.adapters.CategoryAdapter;
 import com.example.restaurant.adapters.PopularAdapter;
 import com.example.restaurant.apiinterface.ProductApi;
+import com.example.restaurant.login.data.LoginConfig;
 import com.example.restaurant.model.Category;
 import com.example.restaurant.model.Product;
 import com.example.restaurant.retrofit.ApiUtils;
@@ -29,27 +32,26 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView categoryRecyclerView, popRecyclerView;
-    CategoryAdapter categoryAdapter;
-    PopularAdapter popularAdapter;
-    ProductApi productApi;
+    private RecyclerView categoryRecyclerView, popRecyclerView;
+    private CategoryAdapter categoryAdapter;
+    private PopularAdapter popularAdapter;
+    private TextView greetingText;
+    private ProductApi productApi;
     private ArrayList<Product> productArrayList;
     private List<Product> popularProducts = new ArrayList<>();
 
     static ArrayList<Category> categories = new ArrayList<>();
 
     static {
-        categories.add(new Category("Pizza", R.drawable.pizza));
+        categories.add(new Category("Entry", R.drawable.pizza));
         categories.add(new Category("Burger",  R.drawable.burger));
         categories.add(new Category("Ramen",  R.drawable.ramen));
         categories.add(new Category("Sushi",  R.drawable.sushi));
-        categories.add(new Category("Drinks",  R.drawable.drink));
+        categories.add(new Category("Drink",  R.drawable.drink));
         categories.add(new Category("All",  R.drawable.all_categories));
     }
 
-
-
-
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +60,11 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         categoryRecyclerView = view.findViewById(R.id.categoriesRecyclerView);
         popRecyclerView = view.findViewById(R.id.popularRecyvlerView);
+        greetingText = view.findViewById(R.id.greetingsText);
+
+        LoginConfig loginConfig = new LoginConfig(getContext());
+
+        greetingText.setText("Hi, " + loginConfig.getNameOfUser());
 
         recyclerViewInit();
 

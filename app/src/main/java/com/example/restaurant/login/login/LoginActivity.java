@@ -2,7 +2,6 @@ package com.example.restaurant.login.login;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +20,7 @@ import com.example.restaurant.activities.MainActivity;
 import com.example.restaurant.databinding.ActivityLoginBinding;
 import com.example.restaurant.login.data.LoginConfig;
 import com.example.restaurant.login.data.LoginRepository;
+import com.example.restaurant.model.LoggedInUser;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -133,18 +133,12 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         });
 
-        registerButton.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-        });
+        registerButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
 
-        loginButton.setOnClickListener(v -> {
-            loginViewModel.login(usernameEditText.getText().toString(),
-                    passwordEditText.getText().toString(), isRememberUserLogin, getApplicationContext());
-        });
+        loginButton.setOnClickListener(v -> loginViewModel.login(usernameEditText.getText().toString(),
+                passwordEditText.getText().toString(), isRememberUserLogin, getApplicationContext()));
 
-        rememberMe.setOnClickListener(view -> {
-            isRememberUserLogin = rememberMe.isChecked();
-        });
+        rememberMe.setOnClickListener(view -> isRememberUserLogin = rememberMe.isChecked());
 
         if (loginConfig.isUserLogin()) {
             String name = loginConfig.getNameOfUser();

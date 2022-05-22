@@ -1,6 +1,7 @@
 package com.example.restaurant.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurant.R;
+import com.example.restaurant.activities.CategoriesActivity;
+import com.example.restaurant.activities.ShowDetailActivity;
 import com.example.restaurant.model.Category;
 
 import java.util.ArrayList;
@@ -38,6 +41,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.categoryName.setText(categories.get(position).getTitle());
         holder.categoryPic.setImageResource(categories.get(position).getPicture());
+
+        holder.mainLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(holder.itemView.getContext(), CategoriesActivity.class);
+            intent.putExtra("category", categories.get(position).getTitle());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override

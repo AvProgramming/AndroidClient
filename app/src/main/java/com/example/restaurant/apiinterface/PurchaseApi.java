@@ -18,11 +18,11 @@ public interface PurchaseApi {
     @POST("/purchases/")
     Call<Purchase> savePurchase(@Body Purchase purchase);
 
-    @GET("/purchases/pagination/{page}/5")
+    @GET("/purchases/pagination/{page}/8")
     Call<PurchaseListClass> getPurchases(@Path("page") Integer page);
 
-    @GET("/purchases/{id}")
-    Call<Purchase> getPurchaseById(@Path("id") Long id);
+    @GET("/purchases/pagination/{page}/8")
+    Call<PurchaseListClass> getPurchasesById(@Path("page") Integer page, @Query("id") Long id);
 
     @DELETE("/purchases/{id}")
     Call<Purchase> deletePurchase(@Path("id") Long id);
