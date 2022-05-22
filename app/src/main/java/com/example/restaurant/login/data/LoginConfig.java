@@ -43,6 +43,18 @@ public class LoginConfig {
         editor.apply();
     }
 
+    public void saveHomeAddress(String address) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(context.getString(R.string.pref_address_of_user), address);
+        editor.apply();
+    }
+
+    public void savePhone(String phone) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(context.getString(R.string.pref_phone_of_user), phone);
+        editor.apply();
+    }
+
     public String getNameOfUser() {
         return sharedPreferences.getString(context.getString(R.string.pref_name_of_user), "Unknown");
     }
@@ -53,6 +65,14 @@ public class LoginConfig {
 
     public String getEmailOfUser() {
         return sharedPreferences.getString(context.getString(R.string.pref_email_of_user), "email");
+    }
+
+    public String getAddressOfUser() {
+        return sharedPreferences.getString(context.getString(R.string.pref_address_of_user), "home_address");
+    }
+
+    public String getPhoneOfUser() {
+        return sharedPreferences.getString(context.getString(R.string.pref_phone_of_user), "phone_number");
     }
 
 

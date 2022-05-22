@@ -57,4 +57,7 @@
     <string name="pref_email_of_user">email</string>
     <string name="title_activity_update_address">UpdateAddressActivity</string>
     <string name="your_orders_is_here">Your orders is here</string>
+    <string name="pref_phone_of_user">phone_number</string>
+    <string name="pref_address_of_user">address</string>
+    <string name="accept">Accept</string>
 </resources>

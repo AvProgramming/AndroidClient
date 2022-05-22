@@ -1,4 +1,4 @@
-package com.example.restaurant.login.login;
+package com.example.restaurant.login.register;
 
 import android.os.Bundle;
 import android.text.Editable;

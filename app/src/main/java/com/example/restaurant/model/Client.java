@@ -25,7 +25,7 @@ public class Client implements Serializable {
 
     @SerializedName("phone_number")
     @Expose
-    private Integer phone;
+    private String phone;
 
     @SerializedName("address")
     @Expose
@@ -78,11 +78,11 @@ public class Client implements Serializable {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String  getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

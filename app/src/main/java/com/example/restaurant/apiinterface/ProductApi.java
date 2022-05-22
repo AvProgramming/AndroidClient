@@ -12,7 +12,4 @@ public interface ProductApi {
 
     @GET("/products/")
     Call<List<Product>> getProducts();
-
-    @GET("/products/{id}")
-    Call<Product> getProductById(@Path("id") Long id);
 }

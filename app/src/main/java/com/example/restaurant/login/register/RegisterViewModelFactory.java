@@ -1,4 +1,4 @@
-package com.example.restaurant.login.login;
+package com.example.restaurant.login.register;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;

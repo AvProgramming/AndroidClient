@@ -19,8 +19,7 @@ import com.example.restaurant.R;
 import com.example.restaurant.activities.MainActivity;
 import com.example.restaurant.databinding.ActivityLoginBinding;
 import com.example.restaurant.login.data.LoginConfig;
-import com.example.restaurant.login.data.LoginRepository;
-import com.example.restaurant.model.LoggedInUser;
+import com.example.restaurant.login.register.RegisterActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {

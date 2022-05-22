@@ -19,8 +19,14 @@ public interface UserApi {
     @GET("/clients/login/{email}")
     Call<Client> performUserLogin(@Path("email") String email);
 
-    @PATCH("/clients/{id}")
-    Call<Client> updateUser(@Body Client client, @Path("id") Long id);
+    @PATCH("/clients/address/{id}")
+    Call<Client> updateUserAddress(@Body Client client, @Path("id") Long id);
+
+    @PATCH("/clients/phone/{id}")
+    Call<Client> updateUserPhone(@Body Client client, @Path("id") Long id);
+
+    @PATCH("/clients/email/{id}")
+    Call<Client> updateUserEmail(@Body Client client, @Path("id") Long id);
 
     @GET("/clients/email")
     Call<List<String>> getEmails();

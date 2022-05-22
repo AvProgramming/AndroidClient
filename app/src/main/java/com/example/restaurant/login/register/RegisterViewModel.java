@@ -1,4 +1,4 @@
-package com.example.restaurant.login.login;
+package com.example.restaurant.login.register;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

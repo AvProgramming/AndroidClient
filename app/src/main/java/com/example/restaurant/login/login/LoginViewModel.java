@@ -3,6 +3,7 @@ package com.example.restaurant.login.login;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -57,7 +58,7 @@ public class LoginViewModel extends ViewModel {
 
         clientCall.enqueue(new Callback<Client>() {
             @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            public void onResponse(@NonNull Call<Client> call, @NonNull Response<Client> response) {
                 code[0] = response.code();
                 System.out.println(code[0]);
                 if (code[0] == 500) {
@@ -73,6 +74,8 @@ public class LoginViewModel extends ViewModel {
                         loginConfig.saveNameOfUser(client.getName());
                         loginConfig.saveIdOfUser(client.getId());
                         loginConfig.saveEmailAddress(client.getEmail());
+                        loginConfig.savePhone(client.getPhone());
+                        loginConfig.saveHomeAddress(client.getAddress());
 
                         user.setUserId(client.getId());
                         user.setDisplayName(client.getName());

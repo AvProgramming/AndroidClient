@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.restaurant.R;
+import com.example.restaurant.activities.UpdateAddressActivity;
 import com.example.restaurant.activities.UpdateEmailActivity;
+import com.example.restaurant.activities.UpdatePhoneNumberActivity;
 import com.example.restaurant.apiinterface.UserApi;
 import com.example.restaurant.login.data.LoginConfig;
 import com.example.restaurant.login.data.LoginRepository;
@@ -92,7 +94,7 @@ public class ProfileFragment extends Fragment {
                         Collections.addAll(address, client.getAddress().split("\\."));
 
                         countryTxt.setText(address.get(0));
-                        addressTxt.setText(address.get(1));
+                        addressTxt.setText(address.get(1) + address.get(2));
                     } else {
                         addressTxt.setText("Set your home address");
                         countryTxt.setText("Set your country");
@@ -120,13 +122,13 @@ public class ProfileFragment extends Fragment {
         });
 
         changeOrEditPhoneNumberBtn.setOnClickListener(event -> {
-            Intent intent = new Intent(getContext(), UpdateEmailActivity.class);
+            Intent intent = new Intent(getContext(), UpdatePhoneNumberActivity.class);
             intent.putExtra("client", client);
             requireContext().startActivity(intent);
         });
 
         changeOrEditAddressBtn.setOnClickListener(event -> {
-            Intent intent = new Intent(getContext(), UpdateEmailActivity.class);
+            Intent intent = new Intent(getContext(), UpdateAddressActivity.class);
             intent.putExtra("client", client);
             requireContext().startActivity(intent);
         });
